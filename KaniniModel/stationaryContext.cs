@@ -31,7 +31,7 @@ namespace WebApi1.KaniniModel
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=tcp:bookingt.database.windows.net,1433;Initial Catalog=stationary;Persist Security Info=False;User ID=team8;Password=Teammovie@8;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");//Server=KANINI-LTP-499\\SQLSERVER2019CH;Database=stationary;Trusted_Connection=True;
+                optionsBuilder.UseSqlServer("Server=KANINI-LTP-499\\SQLSERVER2019CH;Database=stationary;Trusted_Connection=True;");
             }
         }
 
@@ -44,15 +44,16 @@ namespace WebApi1.KaniniModel
                 entity.ToTable("bookingT");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                    .HasMaxLength(10)
+                    .HasColumnName("id")
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.MovieDescription)
                     .HasMaxLength(500)
                     .IsFixedLength(true);
 
                 entity.Property(e => e.MovieName)
-                    .HasMaxLength(70)
+                    .HasMaxLength(100)
                     .IsFixedLength(true);
             });
 
